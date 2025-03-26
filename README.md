@@ -61,3 +61,56 @@
             <select id="class">
                 <option value="economy">Economy</option>
                 <option value="business">Business</option>
+                <option value="first">First Class</option>
+            </select>
+            <button onclick="bookFlight()">Book Now</button>
+        </div>
+        <div id="confirmation-section" class="hidden">
+            <h2>Booking Confirmed</h2>
+            <p>Your flight to <span id="confirm-destination"></span> on <span id="confirm-date"></span> is confirmed!</p>
+            <p>Class: <span id="confirm-class"></span></p>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        let loggedIn = false;
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (email && password) {
+                loggedIn = true;
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('booking-section').classList.remove('hidden');
+            } else {
+                alert('Please enter a valid email and password.');
+            }
+        }
+
+        function bookFlight() {
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const flightClass = document.getElementById('class').value;
+
+            if (destination && date) {
+                document.getElementById('booking-section').classList.add('hidden');
+                document.getElementById('confirmation-section').classList.remove('hidden');
+                document.getElementById('confirm-destination').textContent = destination;
+                document.getElementById('confirm-date').textContent = date;
+                document.getElementById('confirm-class').textContent = flightClass;
+            } else {
+                alert('Please fill in all booking details.');
+            }
+        }
+
+        function logout() {
+            loggedIn = false;
+            document.getElementById('confirmation-section').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
