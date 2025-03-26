@@ -63,53 +63,44 @@
                 <option value="business">Business</option>
                 <option value="first">First Class</option>
             </select>
-            <button onclick="bookFlight()">Book Now</button>
-        </div>
-        <div id="confirmation-section" class="hidden">
-            <h2>Booking Confirmed</h2>
-            <p>Your flight to <span id="confirm-destination"></span> on <span id="confirm-date"></span> is confirmed!</p>
-            <p>Class: <span id="confirm-class"></span></p>
-            <button onclick="logout()">Logout</button>
+            <h3>Payment Details</h3>
+            <input id="card-name" type="text" placeholder="Card Name">
+            <input id="card-number" type="text" placeholder="Card Number">
+            <input id="expiry" type="text" placeholder="Expiry (MM/YY)">
+            <input id="cvv" type="text" placeholder="CVV">
+            <button onclick="book()">Book & Pay</button>
         </div>
     </div>
 
     <script>
-        let loggedIn = false;
+        const validUser = { email: "raghuraj@234.com", password: "password123" };
 
         function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            // Basic validation
-            if (email && password) {
-                loggedIn = true;
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('booking-section').classList.remove('hidden');
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            if (email === validUser.email && password === validUser.password) {
+                alert("Login Successful!");
+                document.getElementById("login-section").classList.add("hidden");
+                document.getElementById("booking-section").classList.remove("hidden");
             } else {
-                alert('Please enter a valid email and password.');
+                alert("Invalid Credentials");
             }
         }
 
-        function bookFlight() {
-            const destination = document.getElementById('destination').value;
-            const date = document.getElementById('date').value;
-            const flightClass = document.getElementById('class').value;
+        function book() {
+            const destination = document.getElementById("destination").value;
+            const date = document.getElementById("date").value;
+            const flightClass = document.getElementById("class").value;
+            const cardName = document.getElementById("card-name").value;
+            const cardNumber = document.getElementById("card-number").value;
+            const expiry = document.getElementById("expiry").value;
+            const cvv = document.getElementById("cvv").value;
 
-            if (destination && date) {
-                document.getElementById('booking-section').classList.add('hidden');
-                document.getElementById('confirmation-section').classList.remove('hidden');
-                document.getElementById('confirm-destination').textContent = destination;
-                document.getElementById('confirm-date').textContent = date;
-                document.getElementById('confirm-class').textContent = flightClass;
+            if (destination && date && flightClass && cardName && cardNumber && expiry && cvv) {
+                alert(`Flight booked successfully!\nDestination: ${destination}\nDate: ${date}\nClass: ${flightClass}\nPayment by: ${cardName}`);
             } else {
-                alert('Please fill in all booking details.');
+                alert("Please fill all fields.");
             }
-        }
-
-        function logout() {
-            loggedIn = false;
-            document.getElementById('confirmation-section').classList.add('hidden');
-            document.getElementById('login-section').classList.remove('hidden');
         }
     </script>
 </body>
